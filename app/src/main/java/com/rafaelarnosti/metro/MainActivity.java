@@ -4,8 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.rafaelarnosti.metro.adapter.AndroidAdapter;
+import com.rafaelarnosti.metro.adapter.OnItemClickListener;
 import com.rafaelarnosti.metro.api.APIUtils;
 import com.rafaelarnosti.metro.api.AndroidAPI;
 import com.rafaelarnosti.metro.model.Android;
@@ -29,7 +31,14 @@ public class MainActivity extends AppCompatActivity {
 
         rvAndroids = (RecyclerView) findViewById(R.id.rvAndroids);
 
-        androidAdapter = new AndroidAdapter(new ArrayList<Android>());
+        androidAdapter = new AndroidAdapter(new ArrayList<Android>(),
+                new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Android item) {
+                        Toast.makeText(getApplicationContext()
+                                ,item.getCor(),Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rvAndroids.setLayoutManager(layoutManager);

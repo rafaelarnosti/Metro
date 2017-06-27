@@ -20,9 +20,11 @@ import java.util.List;
 public class AndroidAdapter extends RecyclerView.Adapter<AndroidAdapter.AndroidViewHolder> {
 
     private List<Android> androids;
+    private OnItemClickListener listener;
 
-    public AndroidAdapter(List<Android> androids){
+    public AndroidAdapter(List<Android> androids,OnItemClickListener listener){
         this.androids = androids;
+        this.listener = listener;
     }
 
     @Override
@@ -33,10 +35,17 @@ public class AndroidAdapter extends RecyclerView.Adapter<AndroidAdapter.AndroidV
     }
 
     @Override
-    public void onBindViewHolder(AndroidViewHolder holder, int position) {
+    public void onBindViewHolder(AndroidViewHolder holder, final int position) {
 
         holder.tvTitulo.setText(androids.get(position).getCor());
         holder.tvSubTitulo.setText(androids.get(position).getNumero());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(androids.get(position));
+            }
+        });
 
         Picasso.with(holder.itemView.getContext())
                 .load(androids.get(position).getUrlImagem())

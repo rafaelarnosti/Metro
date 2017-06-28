@@ -1,5 +1,6 @@
 package com.rafaelarnosti.metro;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
                 new OnItemClickListener() {
                     @Override
                     public void onItemClick(Android item) {
-                        Toast.makeText(getApplicationContext()
-                                ,item.getCor(),Toast.LENGTH_SHORT).show();
+                        Intent telaMapa = new Intent(MainActivity.this, MapsActivity.class);
+                        startActivity(telaMapa);
                     }
                 });
 

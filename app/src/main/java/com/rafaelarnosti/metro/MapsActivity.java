@@ -48,7 +48,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onResponse(Call<List<Estacao>> call, Response<List<Estacao>> response) {
                 if(response.isSuccessful()){
                     for(Estacao e : response.body()){
-                        LatLng estacao = new LatLng(Double.parseDouble(e.getLatitude()),(Double.parseDouble(e.getLongitude())));
+                        LatLng estacao = new LatLng(Double.parseDouble(e.getLatitude()),
+                                (Double.parseDouble(e.getLongitude())));
                         mMap.addMarker(new MarkerOptions().position(estacao).title("Mark in" + e.getNome()));
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(estacao,16));
                     }

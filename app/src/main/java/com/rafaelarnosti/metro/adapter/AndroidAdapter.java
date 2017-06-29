@@ -8,7 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rafaelarnosti.metro.R;
-import com.rafaelarnosti.metro.model.Android;
+import com.rafaelarnosti.metro.model.Estacao;
+import com.rafaelarnosti.metro.model.Linha;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -19,11 +20,12 @@ import java.util.List;
 
 public class AndroidAdapter extends RecyclerView.Adapter<AndroidAdapter.AndroidViewHolder> {
 
-    private List<Android> androids;
+    private List<Linha> linhas;
     private OnItemClickListener listener;
 
-    public AndroidAdapter(List<Android> androids,OnItemClickListener listener){
-        this.androids = androids;
+
+    public AndroidAdapter(List<Linha> linhas, OnItemClickListener listener){
+        this.linhas = linhas;
         this.listener = listener;
     }
 
@@ -37,25 +39,25 @@ public class AndroidAdapter extends RecyclerView.Adapter<AndroidAdapter.AndroidV
     @Override
     public void onBindViewHolder(AndroidViewHolder holder, final int position) {
 
-        holder.tvTitulo.setText(androids.get(position).getCor());
-        holder.tvSubTitulo.setText(androids.get(position).getNumero());
+        holder.tvTitulo.setText(linhas.get(position).getCor());
+        holder.tvSubTitulo.setText(linhas.get(position).getNumero());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(androids.get(position));
+                listener.onItemClick(linhas.get(position));
             }
         });
 
         Picasso.with(holder.itemView.getContext())
-                .load(androids.get(position).getUrlImagem())
+                .load(linhas.get(position).getUrlImagem())
                 .into(holder.ivAndroid);
 
     }
 
     @Override
     public int getItemCount() {
-        return androids.size();
+        return linhas.size();
     }
 
     public class AndroidViewHolder extends RecyclerView.ViewHolder {
@@ -72,8 +74,8 @@ public class AndroidAdapter extends RecyclerView.Adapter<AndroidAdapter.AndroidV
 
         }
     }
-    public void update(List<Android> androids){
-        this.androids = androids;
+    public void update(List<Linha> linhas){
+        this.linhas = linhas;
         notifyDataSetChanged();
     }
 }

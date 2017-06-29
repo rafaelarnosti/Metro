@@ -5,13 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import com.rafaelarnosti.metro.adapter.AndroidAdapter;
 import com.rafaelarnosti.metro.adapter.OnItemClickListener;
 import com.rafaelarnosti.metro.api.APIUtils;
 import com.rafaelarnosti.metro.api.AndroidAPI;
-import com.rafaelarnosti.metro.model.Android;
+import com.rafaelarnosti.metro.model.Linha;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +31,12 @@ public class MainActivity extends AppCompatActivity {
 
         rvAndroids = (RecyclerView) findViewById(R.id.rvAndroids);
 
-        androidAdapter = new AndroidAdapter(new ArrayList<Android>(),
+        androidAdapter = new AndroidAdapter(new ArrayList<Linha>(),
                 new OnItemClickListener() {
                     @Override
-                    public void onItemClick(Android item) {
+                    public void onItemClick(Linha linha) {
                         Intent telaMapa = new Intent(MainActivity.this, MapsActivity.class);
+                        telaMapa.putExtra("LINHA",linha);
                         startActivity(telaMapa);
                     }
                 });
@@ -54,16 +54,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void carregaDados(){
         androidAPI = APIUtils.getAndroidAPIVersion();
-        androidAPI.getLinhas().enqueue(new Callback<List<Android>>() {
+        androidAPI.getLinhas().enqueue(new Callback<List<Linha>>() {
             @Override
-            public void onResponse(Call<List<Android>> call, Response<List<Android>> response) {
+            public void onResponse(Call<List<Linha>> call, Response<List<Linha>> response) {
                 if(response.isSuccessful()){
                     androidAdapter.update(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Android>> call, Throwable t) {
+            public void onFailure(Call<List<Linha>> call, Throwable t) {
 
             }
         });
